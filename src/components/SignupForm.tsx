@@ -1,34 +1,12 @@
 import React from 'react'
 import { useFormik } from 'formik'
+import * as Yup from 'yup';
 
 type ValuesType = {
    firstName?: string
    lastName?: string
    email?: string
 }
-
-const validate = (values: ValuesType) => {
-   const errors: ValuesType = {};
-   if (!values.firstName) {
-      errors.firstName = 'Required';
-   } else if (values.firstName.length > 15) {
-      errors.firstName = 'Must be 15 characters or less';
-   }
-
-   if (!values.lastName) {
-      errors.lastName = 'Required';
-   } else if (values.lastName.length > 20) {
-      errors.lastName = 'Must be 20 characters or less';
-   }
-
-   if (!values.email) {
-      errors.email = 'Required';
-   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      errors.email = 'Invalid email address';
-   }
-
-   return errors;
-};
 
 const SignupForm = () => {
    const formik = useFormik({
@@ -37,7 +15,16 @@ const SignupForm = () => {
          firstName: '',
          lastName: '',
       },
-      validate,
+      validationSchema: Yup.object({
+         firstName: Yup.string()
+            .max(15, 'Must be 15 characters or less')
+            .required('Required'),
+         lastName: Yup.string()
+            .max(20, 'Must be 20 characters or less')
+            .required('Required'),
+         email: Yup.string().email('Invalid email address')
+            .required('Required'),
+      }),
       onSubmit: (values) => {
          alert(JSON.stringify(values, null, 2))
       }
@@ -50,11 +37,16 @@ const SignupForm = () => {
             id='email'
             name='email'
             type='email'
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             value={formik.values.email}
          />
          {
-            formik.errors.email ? <div>{formik.errors.email}</div> : null
+            formik.touched.email && formik.errors.email ? (
+               <div>
+                  {formik.errors.email}
+               </div>
+            ) : null
          }
          <br />
          <label htmlFor='firstName'>First name</label>
@@ -64,8 +56,16 @@ const SignupForm = () => {
             name='firstName'
             type='text'
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.firstName}
          />
+         {
+            formik.touched.firstName && formik.errors.firstName ? (
+               <div>
+                  {formik.errors.firstName}
+               </div>
+            ) : null
+         }
          <br />
          <label htmlFor='lastName'>Last name</label>
          <br />
@@ -74,8 +74,16 @@ const SignupForm = () => {
             name='lastName'
             type='text'
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.lastName}
          />
+         {
+            formik.touched.lastName && formik.errors.lastName ? (
+               <div>
+                  {formik.errors.lastName}
+               </div>
+            ) : null
+         }
          <br />
          <button type='submit'>Submit</button>
       </form>
