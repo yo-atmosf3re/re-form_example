@@ -1,0 +1,61 @@
+@import url("https://fonts.cdnfonts.com/css/fixedsys-62");
+
+$bgc-input-text: #39ff14;
+
+body {
+   font-family: "Fixedsys 62", sans-serif;
+   font-weight: 500;
+   background-color: black;
+   color: $bgc-input-text;
+}
+
+.signup-form {
+   .wrapper {
+      margin: 0 auto;
+      max-width: 1600px;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      .wrapper__header {
+         padding-left: 80px;
+      }
+
+      .wrapper__f-name {
+         height: 70px;
+      }
+
+      .wrapper__l-name {
+         height: 70px;
+      }
+
+      .wrapper__email-block {
+         height: 40px;
+         // padding-bottom: 10px;
+      }
+
+      .wrapper__select-job {
+         height: 100px;
+         input {
+            padding-left: 20px;
+         }
+         .select-job__list {
+         }
+      }
+
+      .wrapper__accept-check {
+         .accept-check__flag {
+         }
+      }
+
+      .wrapper__button-submit {
+         font-family: inherit;
+         width: 120px;
+         background-color: $bgc-input-text;
+         opacity: 0.5;
+         &:active {
+            opacity: 1;
+            color: white;
+         }
+      }
+   }
+}
