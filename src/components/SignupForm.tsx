@@ -1,53 +1,70 @@
-import React from 'react'
-import { Form, Formik, useField } from 'formik'
+import React, { ClassAttributes, InputHTMLAttributes, SelectHTMLAttributes } from 'react'
+import { FieldHookConfig, Form, Formik, FormikProps, useField } from 'formik'
 import * as Yup from 'yup';
-// import './SignupForm.module.scss'
 
-
-const MyTextInput = ({ label, ...props }) => {
-   const [field, meta] = useField(props);
-   return (
-      <>
-         <label htmlFor={props.id || props.name}>{label}</label>
-         <input className="text-input" {...field} {...props} />
-         {meta.touched && meta.error ? (
-            <div className="error">{meta.error}</div>
-         ) : null}
-      </>
-   )
+type FieldProps = {
+   label?: string
+   name?: string
+   id?: number
 }
 
-const MyCheckbox = ({ children, ...props }) => {
-   const [field, meta] = useField({ ...props, type: 'checkbox' });
-   return (
+const MyTextInput: React.FC<
+   FieldProps
+   & InputHTMLAttributes<HTMLInputElement>
+   & ClassAttributes<HTMLInputElement>
+   & FieldHookConfig<string>>
+   = ({ label, ...props }) => {
+      const [field, meta] = useField(props);
+      return (
+         <>
+            <label htmlFor={props.id || props.name}>{label}</label>
+            <input className="text-input" {...field} {...props} />
+            {meta.touched && meta.error ? (
+               <div className="error">{meta.error}</div>
+            ) : null}
+         </>
+      )
+   }
 
-      <label>
-         <input type={'checkbox'} {...field} {...props} />
-         {children}
-         {
-            meta.touched && meta.error ? (
-               <div>
-                  {meta.error}
-               </div>
-            ) : null
-         }
-      </label>
+const MyCheckbox: React.FC<
+   FieldProps
+   & InputHTMLAttributes<HTMLInputElement>
+   & ClassAttributes<HTMLInputElement>
+   & FieldHookConfig<string>>
+   = ({ children, ...props }) => {
+      const [field, meta] = useField({ ...props, type: 'checkbox' });
+      return (
+         <label>
+            <input type={'checkbox'} {...field} {...props} />
+            {children}
+            {
+               meta.touched && meta.error ? (
+                  <div>
+                     {meta.error}
+                  </div>
+               ) : null
+            }
+         </label>
+      )
+   }
 
-   )
-}
-
-const MySelect = ({ label, ...props }) => {
-   const [field, meta] = useField(props);
-   return (
-      <div>
-         <label htmlFor={props.id || props.name}>{label}</label>
-         <select {...field} {...props} />
-         {meta.touched && meta.error ? (
-            <div className="error">{meta.error}</div>
-         ) : null}
-      </div>
-   );
-};
+const MySelect: React.FC<
+   FieldProps
+   & SelectHTMLAttributes<HTMLSelectElement>
+   & ClassAttributes<HTMLSelectElement>
+   & FieldHookConfig<string>>
+   = ({ label, ...props }) => {
+      const [field, meta] = useField(props);
+      return (
+         <div>
+            <label htmlFor={props.id || props.name}>{label}</label>
+            <select {...field} {...props} />
+            {meta.touched && meta.error ? (
+               <div className="error">{meta.error}</div>
+            ) : null}
+         </div>
+      );
+   };
 
 const SignupForm = () => {
    return (
@@ -126,7 +143,7 @@ const SignupForm = () => {
                      </MySelect>
                   </div>
                   <br />
-                  <div classname='wrapper__accept-check'>
+                  <div className='wrapper__accept-check'>
                      <MyCheckbox className='accept-check__flag' name='acceptedTerms'>
                         I accept the terms and conditions
                      </MyCheckbox>
@@ -136,7 +153,7 @@ const SignupForm = () => {
                </Form>
             </Formik>
          </div>
-      </div>
+      </div >
    )
 }
 
