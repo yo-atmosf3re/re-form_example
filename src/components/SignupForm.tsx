@@ -1,5 +1,5 @@
 import React, { ClassAttributes, InputHTMLAttributes, SelectHTMLAttributes } from 'react'
-import { FieldHookConfig, Form, Formik, FormikProps, useField } from 'formik'
+import { FieldHookConfig, Form, Formik, useField } from 'formik'
 import * as Yup from 'yup';
 
 type FieldProps = {
@@ -26,6 +26,7 @@ const MyTextInput: React.FC<
       )
    }
 
+
 const MyCheckbox: React.FC<
    FieldProps
    & InputHTMLAttributes<HTMLInputElement>
@@ -48,6 +49,7 @@ const MyCheckbox: React.FC<
       )
    }
 
+
 const MySelect: React.FC<
    FieldProps
    & SelectHTMLAttributes<HTMLSelectElement>
@@ -65,6 +67,7 @@ const MySelect: React.FC<
          </div>
       );
    };
+
 
 const SignupForm = () => {
    return (
@@ -134,7 +137,10 @@ const SignupForm = () => {
                   </div>
                   <br />
                   <div className='wrapper__select-job'>
-                     <MySelect className='select-job__list' label="Job Type" name="jobType">
+                     <MySelect
+                        className='select-job__list'
+                        label="Job Type"
+                        name="jobType">
                         <option value="">Select a job type</option>
                         <option value="designer">Designer</option>
                         <option value="development">Developer</option>
@@ -144,12 +150,16 @@ const SignupForm = () => {
                   </div>
                   <br />
                   <div className='wrapper__accept-check'>
-                     <MyCheckbox className='accept-check__flag' name='acceptedTerms'>
+                     <MyCheckbox
+                        className='accept-check__flag'
+                        name='acceptedTerms'>
                         I accept the terms and conditions
                      </MyCheckbox>
                   </div>
                   <br />
-                  <button className='wrapper__button-submit' type="submit">Submit</button>
+                  <button
+                     className='wrapper__button-submit'
+                     type="submit">Submit</button>
                </Form>
             </Formik>
          </div>
