@@ -15,6 +15,7 @@ const Textarea: React.FC<TextareaPropsType> = ({
          <label htmlFor={name}>
             {label}
          </label>
+         <br />
          <Field
             as='textarea'
             id={name}
